@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface SearchResult {
   id: string;
@@ -15,6 +16,7 @@ export function LiveSearchBox() {
   const [isLoading, setIsLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   // Debounce search to avoid too many API calls
   useEffect(() => {
@@ -58,6 +60,15 @@ export function LiveSearchBox() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      if (query.trim() !== '') {
+        router.push(`/search?keyword=${encodeURIComponent(query)}`);
+        setShowResults(false);
+      }
+    }
+  };
+
   return (
     <div ref={searchRef} className="relative w-full max-w-md">
       {/* Search Input */}
@@ -67,6 +78,7 @@ export function LiveSearchBox() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => query.length >= 2 && setShowResults(true)}
+          onKeyDown={handleKeyDown}
           placeholder="Search anime..."
           className="w-full px-4 py-2 pr-10 bg-gray-800 text-white rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none"
         />
@@ -79,9 +91,9 @@ export function LiveSearchBox() {
 
       {/* Live Search Results Dropdown */}
       {showResults && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-gray-800 border border-gray-600 rounded-lg shadow-lg max-h-96 overflow-y-auto z-50">
+        <div className="absolute top-full left-0 right-0 mt-1 bg-gray-800/90 border border-gray-600 rounded-lg shadow-lg max-h-96 overflow-hidden z-50">
           {results.length > 0 ? (
-            <ul className="py-2">
+            <ul className="py-2 overflow-y-scroll pr-4 -mr-4">
               {results.slice(0, 8).map((anime) => ( // Limit to 8 results
                 <li key={anime.id}>
                   <a
