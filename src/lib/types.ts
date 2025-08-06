@@ -21,6 +21,7 @@ export interface Anime {
   related?: any[]; // You might want to define a more specific interface for this
   mostPopular?: Anime[];
   recommended?: Anime[];
+  trailerId?: string;
 }
 
 export interface Episode {

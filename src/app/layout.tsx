@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         <meta name="referrer" content="origin" />
-        <meta httpEquiv="Content-Security-Policy" content="frame-src 'self' https://megaplay.buzz https://*.megaplay.buzz;" />
+        <meta httpEquiv="Content-Security-Policy" content="frame-src 'self' https://megaplay.buzz https://*.megaplay.buzz https://www.youtube.com https://youtube.com https://youtu.be;" />
       </head>
       <body className={inter.className}>
         <Header />
