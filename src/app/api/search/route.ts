@@ -6,13 +6,8 @@ export async function GET(request: Request) {
   const keyword = searchParams.get('keyword');
   const page = searchParams.get('page');
 
-  try {
-    const response = await fetch(`http://localhost:3000/api/search?keyword=${keyword}&page=${page}`);
-    const data = await response.json();
-    console.log('API Search Data:', data);
-    return NextResponse.json(data);
-  } catch (error) {
-    console.error('Error fetching search data:', error);
-    return NextResponse.json({ error: 'Failed to fetch' }, { status: 500 });
-  }
+  console.log("Search API hit! Keyword:", keyword, "Page:", page); // Added log
+
+  // Return a dummy response to test if the route is being hit
+  return NextResponse.json({ message: `Search received for: ${keyword}` });
 }
