@@ -8,6 +8,8 @@ interface SearchResult {
   title: string;
   poster: string;
   status: string;
+  episodes?: number | { sub: number; dub: number; eps: number };
+  type: string;
 }
 
 export function LiveSearchBox() {
