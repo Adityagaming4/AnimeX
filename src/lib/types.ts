@@ -17,8 +17,8 @@ export interface Anime {
   genres?: string[];
   studios?: string;
   producers?: string[];
-  moreSeasons?: any[]; // You might want to define a more specific interface for this
-  related?: any[]; // You might want to define a more specific interface for this
+  moreSeasons?: unknown[]; // You might want to define a more specific interface for this
+  related?: unknown[]; // You might want to define a more specific interface for this
   mostPopular?: Anime[];
   recommended?: Anime[];
   trailerId?: string;

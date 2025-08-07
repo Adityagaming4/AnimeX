@@ -36,7 +36,7 @@ export function Header() {
   );
 }
 
-function MenuIcon(props: any) {
+function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}

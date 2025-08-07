@@ -31,7 +31,7 @@ export default function SearchPage() {
 
   return (
     <div className="container mx-auto px-4 md:px-6 py-8">
-      <h1 className="text-3xl font-bold mb-8">Search Results for "{keyword}"</h1>
+      <h1 className="text-3xl font-bold mb-8">Search Results for &quot;{keyword}&quot;</h1>
       {loading ? (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {Array.from({ length: 12 }).map((_, i) => (

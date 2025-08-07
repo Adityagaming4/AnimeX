@@ -1,5 +1,5 @@
 
-import { Anime, Episode, StreamingResponse } from './types';
+import { Anime, Episode } from './types';
 
 const API_BASE = 'https://hi-anime-production.up.railway.app/api';
 

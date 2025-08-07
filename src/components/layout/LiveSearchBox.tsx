@@ -118,7 +118,7 @@ export function LiveSearchBox() {
             </ul>
           ) : query.length >= 2 && !isLoading ? (
             <div className="px-4 py-3 text-gray-400 text-sm">
-              No anime found for "{query}"
+              No anime found for &quot;{query}&quot;
             </div>
           ) : null}
         </div>
