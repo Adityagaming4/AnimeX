@@ -16,7 +16,7 @@ export default async function WatchPage({
     const episodeNumber = parseInt(parts[1]);
 
     //  DIRECT API CALL - No proxy needed
-    const streamResponse = await fetch(`http://localhost:3000/api/stream/${episodeId}/sub`);
+    const streamResponse = await fetch(`https://hi-anime-production.up.railway.app/api/stream/${episodeId}/sub`);
     const streamData = await streamResponse.json();
 
     console.log('Direct API response:', streamData); // Debug

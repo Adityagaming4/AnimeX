@@ -7,7 +7,7 @@ export async function GET(
   const { id } = await params; // ✅ Await params
 
   try {
-    const response = await fetch(`http://localhost:3000/api/episodes/${id}`);
+    const response = await fetch(`https://hi-anime-production.up.railway.app/api/episodes/${id}`);
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {

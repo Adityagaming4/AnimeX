@@ -32,7 +32,7 @@ export function LiveSearchBox() {
       setIsLoading(true);
       try {
         // Use your existing search endpoint
-        const response = await fetch(`http://localhost:3001/api/search?keyword=${encodeURIComponent(query)}`);
+        const response = await fetch(`https://hi-anime-production.up.railway.app/api/search?keyword=${encodeURIComponent(query)}`);
         const data = await response.json();
         
         setResults(data.response || []);

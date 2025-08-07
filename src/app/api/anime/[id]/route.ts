@@ -7,7 +7,7 @@ export async function GET(
   const { id } = await params; // ✅ Await params
 
   try {
-    const response = await fetch(`http://localhost:3000/api/anime/${id}`);
+    const response = await fetch(`https://hi-anime-production.up.railway.app/api/anime/${id}`);
     const data = await response.json();
 
     // Fetch trailer ID from Kitsu API

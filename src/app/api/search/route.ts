@@ -13,7 +13,7 @@ export async function GET(request: Request) {
 
   try {
     // Proxy request to your HiAnime API backend
-    const backendResponse = await fetch(`http://localhost:3000/api/search?keyword=${encodeURIComponent(keyword)}&page=${page}`);
+    const backendResponse = await fetch(`https://hi-anime-production.up.railway.app/api/search?keyword=${encodeURIComponent(keyword)}&page=${page}`);
 
     if (!backendResponse.ok) {
       throw new Error(`Backend search API error: ${backendResponse.status}`);

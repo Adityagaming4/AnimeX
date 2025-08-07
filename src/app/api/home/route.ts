@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const response = await fetch('http://localhost:3000/api/home');
+    const response = await fetch('https://hi-anime-production.up.railway.app/api/home');
     const data = await response.json();
     console.log('API Home Data:', data);
     return NextResponse.json(data);

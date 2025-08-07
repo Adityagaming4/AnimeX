@@ -1,7 +1,7 @@
 
 import { Anime, Episode, StreamingResponse } from './types';
 
-const API_BASE = 'http://localhost:3001/api';
+const API_BASE = 'https://hi-anime-production.up.railway.app/api';
 
 export const getHomePageData = async () => {
   const res = await fetch(`${API_BASE}/home`);
