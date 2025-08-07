@@ -2,13 +2,14 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface SearchResult {
   id: string;
   title: string;
   poster: string;
   status: string;
-  episodes?: number | { sub: number; dub: number; eps: number };
+  episodes: { sub: number; dub: number; eps: number };
   type: string;
 }
 
@@ -103,10 +104,13 @@ export function LiveSearchBox() {
                     className="flex items-center px-4 py-2 hover:bg-gray-700 transition-colors"
                     onClick={() => setShowResults(false)}
                   >
-                    <img
+                    <Image
                       src={anime.poster}
                       alt={anime.title}
-                      className="w-10 h-14 object-cover rounded mr-3 flex-shrink-0"
+                      width={40}
+                      height={56}
+                      className="object-cover rounded mr-3 flex-shrink-0"
+                      loading="lazy"
                     />
                     <div>
                       <div className="text-white font-medium text-sm">{anime.title}</div>

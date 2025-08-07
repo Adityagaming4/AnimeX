@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { searchAnime } from '@/lib/api';
-import { AnimeGrid } from '@/components/home/AnimeGrid'; // Changed from AnimeCarousel
+import { AnimeGrid } from '@/components/home/AnimeGrid';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Anime } from '@/lib/types';
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const keyword = searchParams.get('keyword') || '';
   const [animes, setAnimes] = useState<Anime[]>([]);
@@ -16,7 +16,7 @@ export default function SearchPage() {
   useEffect(() => {
     const fetchAnimes = async () => {
       setLoading(true);
-      const results = await searchAnime(keyword, 1); // Fetch all results for the keyword
+      const results = await searchAnime(keyword, 1);
       setAnimes(results);
       setLoading(false);
     };
@@ -27,7 +27,7 @@ export default function SearchPage() {
       setAnimes([]);
       setLoading(false);
     }
-  }, [keyword]); // Depend on keyword from URL
+  }, [keyword]);
 
   return (
     <div className="container mx-auto px-4 md:px-6 py-8">
@@ -40,11 +40,19 @@ export default function SearchPage() {
         </div>
       ) : (
         animes.length > 0 ? (
-          <AnimeGrid animes={animes} /> // Changed to AnimeGrid
+          <AnimeGrid animes={animes} />
         ) : (
-          keyword.trim() !== '' && <p className="text-center text-muted-foreground">No results found for "{keyword}".</p>
+          keyword.trim() !== '' && <p className="text-center text-muted-foreground">No results found for &quot;{keyword}&quot;.</p>
         )
       )}
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading search results...</div>}>
+      <SearchContent />
+    </Suspense>
   );
 }
