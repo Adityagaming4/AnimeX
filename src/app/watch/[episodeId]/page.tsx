@@ -16,13 +16,23 @@ export default async function WatchPage({
     const episodeNumber = parseInt(parts[1]);
 
     //  DIRECT API CALL - No proxy needed
-    const streamResponse = await fetch(`https://hi-anime-production.up.railway.app/api/stream/${episodeId}/sub`);
+    // Fetch episodes for navigation and to get the correct episode ID for streaming
+    const episodesData = await getEpisodes(animeId);
+
+    // Find the specific episode by episodeNumber
+    const currentEpisodeData = episodesData.find(
+      (ep) => ep.episodeNumber === episodeNumber
+    );
+
+    if (!currentEpisodeData) {
+      throw new Error('Episode not found');
+    }
+
+    // Use the actual episode ID for streaming
+    const streamResponse = await fetch(`https://hi-anime-production.up.railway.app/api/stream/${currentEpisodeData.id}/sub`);
     const streamData = await streamResponse.json();
 
     console.log('Direct API response:', streamData); // Debug
-
-    // Fetch episodes for navigation
-    const episodesData = await getEpisodes(animeId);
 
     return (
       <div className="flex flex-col md:flex-row">
