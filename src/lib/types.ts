@@ -6,12 +6,12 @@ export interface Anime {
   poster: string;
   rating?: string;
   type: string;
-  episodes?: { sub: number; dub: number; eps: number };
+  episodes: { sub: number; dub: number; eps: number };
   synopsis?: string;
   synonyms?: string;
   aired?: { from: string; to: string };
   premiered?: string;
-  duration?: string;
+  duration: string;
   status?: string;
   MAL_score?: string;
   genres?: string[];
