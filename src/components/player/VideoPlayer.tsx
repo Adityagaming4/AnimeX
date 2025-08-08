@@ -26,7 +26,6 @@ export function VideoPlayer({ stream }: VideoPlayerProps) {
           key={stream.episodeId}
           src={embedUrl}
           allowFullScreen
-          referrerPolicy="no-referrer"
           className="w-full h-full border-0 overflow-hidden"
           title={`Episode ${stream.episodeId}`}
         />
@@ -37,7 +36,7 @@ export function VideoPlayer({ stream }: VideoPlayerProps) {
           Episode {stream.episodeId} ({stream.language})
         </p>
         <p className="text-xs text-yellow-600 mt-2">
-          ⚠️ For best results, close DevTools (F12) and use a real domain (deployed site).
+         welcome
         </p>
       </div>
     </div>
