@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,6 +24,11 @@
     --input: 217 32% 17%;
     --ring: 263 70% 60%;
     --radius: 0.5rem;
+
+    /* Custom variables for watch page */
+    --glow: #a78bfa33;
+    --panel: rgba(255, 255, 255, .06);
+    --border: rgba(255, 255, 255, .08);
   }
 
   .dark {
@@ -51,5 +55,79 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* ---------- layout grid ---------- */
+.watch-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  height: 100vh;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+/* ---------- animated gradient ---------- */
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(135deg, #0f1116 0%, #312e81 40%, #4c1d95 100%);
+  filter: blur(120px) saturate(1.4);
+}
+
+/* ---------- player ---------- */
+.player-col {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+}
+.video-shell {
+  flex: 1;
+  background: #000;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 0 40px var(--glow);
+  position: relative;
+}
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: .5rem;
+  color: #e2e8f0;
+}
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+ @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- rail ---------- */
+.rail-col {
+  background: var(--panel);
+  border-left: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ---------- mobile drawer ---------- */
+ @media (max-width: 1024px) {
+  .watch-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+  .rail-col {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    max-height: 280px;
   }
 }

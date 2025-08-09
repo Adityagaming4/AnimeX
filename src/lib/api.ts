@@ -1,4 +1,3 @@
-
 import { Anime, Episode } from './types';
 
 const API_BASE = 'https://hi-anime-production.up.railway.app/api';
@@ -37,5 +36,3 @@ export const getEpisodes = async (id: string): Promise<Episode[]> => {
   const result = await res.json();
   return result.episodes;
 };
-
-
