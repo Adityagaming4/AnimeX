@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -15,15 +14,19 @@ interface HeroCarouselProps {
 export function HeroCarousel({ spotlight = [] }: HeroCarouselProps) {
   const [index, setIndex] = useState(0);
   const [isSynopsisExpanded, setIsSynopsisExpanded] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     if (spotlight.length === 0) return;
+    if (isPaused) return;
+
     const timer = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % spotlight.length);
       setIsSynopsisExpanded(false); // Reset expand state on slide change
     }, 5000);
+
     return () => clearInterval(timer);
-  }, [spotlight.length]);
+  }, [spotlight.length, isPaused]);
 
   if (spotlight.length === 0) {
     return <div className="relative h-[60vh] w-full bg-secondary"></div>;
@@ -40,7 +43,15 @@ export function HeroCarousel({ spotlight = [] }: HeroCarouselProps) {
   };
 
   return (
-    <div className="relative h-[60vh] w-full">
+    <div
+      className="relative h-[60vh] w-full"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocus={() => setIsPaused(true)}
+      onBlur={() => setIsPaused(false)}
+      tabIndex={0} // make div focusable for keyboard users
+      aria-label="Anime spotlight carousel"
+    >
       <AnimatePresence initial={false}>
         <motion.div
           key={index}
@@ -54,7 +65,7 @@ export function HeroCarousel({ spotlight = [] }: HeroCarouselProps) {
             src={anime.poster}
             alt={anime.title}
             fill
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: 'cover' }}
             className="z-0"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10" />
@@ -66,7 +77,7 @@ export function HeroCarousel({ spotlight = [] }: HeroCarouselProps) {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg will-change-transform"
+          className="text-3xl md:text-4xl lg:text-6xl font-bold text-white drop-shadow-lg will-change-transform"
         >
           {anime.title}
         </motion.h1>
@@ -75,7 +86,7 @@ export function HeroCarousel({ spotlight = [] }: HeroCarouselProps) {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.5 }}
-            className="text-lg text-gray-300 mt-5 max-w-2xl drop-shadow-lg will-change-transform"
+            className="text-sm md:text-lg text-gray-300 mt-5 max-w-2xl drop-shadow-lg will-change-transform"
           >
             {anime.alternativeTitle}
           </motion.p>
@@ -84,11 +95,14 @@ export function HeroCarousel({ spotlight = [] }: HeroCarouselProps) {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.7, duration: 0.5 }}
-          className="text-sm text-gray-300 mt-5 max-w-2xl drop-shadow-lg will-change-transform"
+          className="text-xs md:text-sm text-gray-300 mt-5 max-w-2xl drop-shadow-lg will-change-transform"
         >
           {anime.type && <span>{anime.type}</span>}
           {anime.aired?.from && anime.aired?.to && (
-            <span> • Aired: {anime.aired.from} to {anime.aired.to}</span>
+            <span>
+              {' '}
+              • Aired: {anime.aired.from} to {anime.aired.to}
+            </span>
           )}
         </motion.div>
         {anime.synopsis && (
@@ -97,12 +111,19 @@ export function HeroCarousel({ spotlight = [] }: HeroCarouselProps) {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.5 }}
             className="mt-6 mb-6 max-w-2xl drop-shadow-lg will-change-transform"
+            aria-live="polite"
           >
             <p className={`text-base text-gray-300 ${isSynopsisExpanded ? '' : 'line-clamp-4'}`}>
               {anime.synopsis}
             </p>
-            {anime.synopsis.length > 150 && ( // Adjust threshold as needed
-              <Button variant="link" onClick={toggleSynopsis} className="p-0 h-auto text-primary-foreground mt-3">
+            {anime.synopsis.length > 150 && (
+              <Button
+                variant="link"
+                onClick={toggleSynopsis}
+                className="p-0 h-auto text-primary-foreground mt-3"
+                aria-expanded={isSynopsisExpanded}
+                aria-controls="synopsis-text"
+              >
                 {isSynopsisExpanded ? 'Show Less' : 'Read More'}
               </Button>
             )}

@@ -25,8 +25,8 @@
     --ring: 263 70% 60%;
     --radius: 0.5rem;
 
-    /* Custom variables for watch page */
-    --glow: #a78bfa33;
+    /* Stronger custom glow for player box shadow */
+    --glow: rgba(168, 85, 247, 0.8);
     --panel: rgba(255, 255, 255, .06);
     --border: rgba(255, 255, 255, .08);
   }
@@ -67,13 +67,32 @@
   overflow: hidden;
 }
 
-/* ---------- animated gradient ---------- */
+/* ---------- enhanced animated anime glow background ---------- */
 .bg-glow {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(135deg, #0f1116 0%, #312e81 40%, #4c1d95 100%);
-  filter: blur(120px) saturate(1.4);
+  background:
+    radial-gradient(circle at 15% 25%, rgba(168, 85, 247, 0.45) 0%, transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.4) 0%, transparent 35%),
+    radial-gradient(circle at 50% 80%, rgba(14, 165, 233, 0.35) 0%, transparent 40%),
+    radial-gradient(circle at 70% 70%, rgba(252, 211, 77, 0.25) 0%, transparent 35%),
+    radial-gradient(circle at 25% 70%, rgba(79, 70, 229, 0.3) 0%, transparent 40%),
+    #0f1116;
+  filter: blur(80px) saturate(1.5);
+  animation: glowMove 25s ease-in-out infinite alternate;
+}
+
+@keyframes glowMove {
+  0% {
+    background-position: 15% 25%, 85% 30%, 50% 80%, 70% 70%, 25% 70%, 0 0;
+  }
+  50% {
+    background-position: 20% 30%, 80% 35%, 55% 75%, 75% 75%, 20% 65%, 0 0;
+  }
+  100% {
+    background-position: 15% 25%, 85% 30%, 50% 80%, 70% 70%, 25% 70%, 0 0;
+  }
 }
 
 /* ---------- player ---------- */
@@ -81,13 +100,14 @@
   display: flex;
   flex-direction: column;
   padding: 1rem 2rem;
+  color: white;
 }
 .video-shell {
   flex: 1;
   background: #000;
   border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 0 40px var(--glow);
+  box-shadow: 0 0 50px var(--glow);
   position: relative;
 }
 .loading {
@@ -107,7 +127,7 @@
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
- @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin { to { transform: rotate(360deg); } }
 
 /* ---------- rail ---------- */
 .rail-col {
@@ -117,10 +137,11 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  color: white;
 }
 
 /* ---------- mobile drawer ---------- */
- @media (max-width: 1024px) {
+@media (max-width: 1024px) {
   .watch-grid {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;

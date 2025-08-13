@@ -36,3 +36,40 @@ export const getEpisodes = async (id: string): Promise<Episode[]> => {
   const result = await res.json();
   return result.episodes;
 };
+
+export const getMostFavoriteListData = async (page: number = 1) => {
+  const res = await fetch(`${API_BASE}/list/most-favorite?page=${page}`);
+  if (!res.ok) {
+    throw new Error('Failed to fetch most favorite list data');
+  }
+  const result = await res.json();
+  return result.response; // Data is under 'response' key
+};
+
+export const getMostPopularListData = async (page: number = 1) => {
+  const res = await fetch(`${API_BASE}/list/most-popular?page=${page}`);
+  if (!res.ok) {
+    throw new Error('Failed to fetch most popular list data');
+  }
+  const result = await res.json();
+  return result.response; // Assuming the list data is under a 'response' key
+};
+
+export const getTopAiringListData = async (page: number = 1) => {
+  const res = await fetch(`${API_BASE}/list/top-airing?page=${page}`);
+  if (!res.ok) {
+    throw new Error('Failed to fetch top airing list data');
+  }
+  const result = await res.json();
+  return result.response; // Assuming the list data is under a 'response' key
+};
+
+export const getRecentlyAddedListData = async (page: number = 1) => {
+  const res = await fetch(`${API_BASE}/list/recently-added?page=${page}`);
+  if (!res.ok) {
+    throw new Error('Failed to fetch recently added list data');
+  }
+  const result = await res.json();
+  return result.response; // Assuming the list data is under a 'response' key
+};
+

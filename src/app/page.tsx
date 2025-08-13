@@ -5,20 +5,27 @@ import { NewAdded } from "@/components/home/NewAdded";
 import { TopAiring } from "@/components/home/TopAiring";
 import { MostPopular } from "@/components/home/MostPopular";
 import { MostFavorite } from "@/components/home/MostFavorite";
-import { LatestCompleted } from "@/components/home/LatestCompleted";
+import { getMostFavoriteListData } from "@/lib/api";
+import { getMostPopularListData } from "@/lib/api";
+import { getRecentlyAddedListData } from "@/lib/api";
+import { getTopAiringListData } from "@/lib/api";
+
 import { TopWeek } from "@/components/home/TopWeek";
 import { TopMonth } from "@/components/home/TopMonth";
 
 export default async function HomePage() {
   const homePageData = await getHomePageData();
+  const newMostFavorite = (await getMostFavoriteListData()) || [];
+  const newMostPopular = (await getMostPopularListData()) || [];
+  const newTopAiring = (await getTopAiringListData()) || [];
+  const newRecentlyAddedSectionData = (await getRecentlyAddedListData()) || [];
+  
 
   const spotlight = homePageData?.spotlight || [];
   const trending = homePageData?.trending || [];
-  const newAdded = homePageData?.newAdded || [];
-  const topAiring = homePageData?.topAiring || [];
-  const mostPopular = homePageData?.mostPopular || [];
-  const mostFavorite = homePageData?.mostFavorite || [];
-  const latestCompleted = homePageData?.latestCompleted || [];
+  
+  
+  
   const topWeek = homePageData?.top10.week || [];
   const topMonth = homePageData?.top10.month || [];
 
@@ -26,12 +33,14 @@ export default async function HomePage() {
     <div>
       <HeroCarousel spotlight={spotlight} />
       <div className="container mx-auto px-4 md:px-6">
-        <TrendingSection trending={trending} />
-        <NewAdded newAdded={newAdded} />
-        <TopAiring topAiring={topAiring} />
-        <MostPopular mostPopular={mostPopular} />
-        <MostFavorite mostFavorite={mostFavorite} />
-        <LatestCompleted latestCompleted={latestCompleted} />
+                <TrendingSection trending={trending} />
+        
+        <NewAdded newAdded={newRecentlyAddedSectionData} />
+        <TopAiring topAiring={newTopAiring} />
+        <MostPopular mostPopular={newMostPopular} />
+        
+        <MostFavorite mostFavorite={newMostFavorite} />
+        
         <TopWeek topWeek={topWeek} />
         <TopMonth topMonth={topMonth} />
       </div>
