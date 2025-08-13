@@ -5,6 +5,7 @@ import { Episode } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { CheckCircle2 } from 'lucide-react';
+import Image from 'next/image';
 
 interface EpisodeListSelectorProps {
   episodes: Episode[];
@@ -91,9 +92,11 @@ const EpisodeListSelector: React.FC<EpisodeListSelectorProps> = ({
                 {/* Thumbnail */}
                 <div className="relative w-24 h-14 rounded-md overflow-hidden flex-shrink-0">
                   {ep.thumbnail ? (
-                    <img
+                    <Image
                       src={ep.thumbnail}
                       alt={ep.title || `Episode ${ep.episodeNumber}`}
+                      width={96} // w-24 = 96px
+                      height={56} // h-14 = 56px
                       className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-200"
                     />
                   ) : (

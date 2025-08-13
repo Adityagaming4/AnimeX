@@ -30,12 +30,15 @@ export interface Episode {
   alternativeTitle?: string;
   id: string;
   isFiller: boolean;
+  thumbnail?: string; // Added
+  watched?: boolean;  // Added
+  duration?: number;  // Added
 }
 
 export interface StreamingResponse {
   status: boolean;
   episodeId: string;
-  language: string;
+  language: "sub" | "dub";
   embedUrl: string;
   iframe: string;
 }

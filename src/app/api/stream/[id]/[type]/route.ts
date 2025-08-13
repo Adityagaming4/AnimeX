@@ -1,10 +1,10 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string; type: 'sub' | 'dub' } }
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string; type: "sub" | "dub" }> }
 ) {
-  const { id, type } = params;
+  const { id, type } = await params;
   console.log(`[API Route] Fetching stream for episode ID: ${id} with type: ${type}`);
 
   try {
