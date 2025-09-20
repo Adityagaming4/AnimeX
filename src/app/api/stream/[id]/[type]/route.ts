@@ -8,7 +8,7 @@ export async function GET(
   console.log(`[API Route] Fetching stream for episode ID: ${id} with type: ${type}`);
 
   try {
-    const streamResponse = await fetch(`https://hi-anime-production.up.railway.app/api/stream/${id}/${type}`);
+    const streamResponse = await fetch(`https://hi-anime.onrender.com/api/stream/${id}/${type}`);
     if (!streamResponse.ok) {
       throw new Error(`Failed to fetch stream: ${streamResponse.statusText}`);
     }

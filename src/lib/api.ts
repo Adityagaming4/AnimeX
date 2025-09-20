@@ -1,6 +1,6 @@
 import { Anime, Episode } from './types';
 
-const API_BASE = 'https://hi-anime-production.up.railway.app/api';
+const API_BASE = 'https://hi-anime.onrender.com';
 
 export const getHomePageData = async () => {
   const res = await fetch(`${API_BASE}/home`);

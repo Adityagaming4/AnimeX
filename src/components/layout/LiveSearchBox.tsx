@@ -35,7 +35,7 @@ export function LiveSearchBox() {
       setIsLoading(true);
       try {
         // Use your existing search endpoint
-        const response = await fetch(`https://hi-anime-production.up.railway.app/api/search?keyword=${encodeURIComponent(query)}`);
+        const response = await fetch(`https://hi-anime.onrender.com/api/search?keyword=${encodeURIComponent(query)}`);
         const data = await response.json();
         
         setResults(data.response || []);

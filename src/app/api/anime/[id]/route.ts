@@ -8,7 +8,7 @@ export async function GET(
 
   try {
     // Fetch anime details from your backend
-    const response = await fetch(`https://hi-anime-production.up.railway.app/api/anime/${id}`);
+    const response = await fetch(`https://hi-anime.onrender.com/api/anime/${id}`);
     const data = await response.json();
 
     // Directly return data without Kitsu lookup
